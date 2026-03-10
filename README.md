@@ -1,12 +1,12 @@
-TinyURL Short Code Service
+# TinyURL Short Code Service
 
-A URL shortener implemented using Spring Boot, Snowflake ID generation, ID scrambling, and Base62 encoding.
+A URL shortener implemented using **Spring Boot**, **Snowflake ID generation**, **ID scrambling**, and **Base62 encoding**.
 
-This project demonstrates the core ideas behind systems like TinyURL and Bitly for generating short, unique, and non-predictable URLs.
+This project demonstrates the core ideas behind systems like **TinyURL** and **Bitly** for generating short, unique, and non‑predictable URLs.
 
-⸻
+---
 
-Architecture
+# Architecture
 
 Flow:
 
@@ -19,69 +19,76 @@ POST /api/v1/shorten
 Request
 
 {
-“url”: “https://example.com/very/long/url”
+"url": "[https://example.com/very/long/url](https://example.com/very/long/url)"
 }
 
 Response
 
 {
-“shortCode”: “aZ91xQ3”,
-“url”: “https://example.com/very/long/url”
+"shortCode": "aZ91xQ3",
+"url": "[https://example.com/very/long/url](https://example.com/very/long/url)"
 }
 
 Redirect request:
 
-GET /api/v1/shorten/aZ91xQ3
+GET /aZ91xQ3
 
 Response:
 
 HTTP/1.1 302 Found
-Location: https://example.com/very/long/url
+Location: [https://example.com/very/long/url](https://example.com/very/long/url)
 
-⸻
+---
 
-Project Structure
+# Project Structure
 
 src/main/java/com/mnc/tinyurl
 
 controller
-•	ShortCodeController.java
+
+* ShortCodeController.java
 
 service
-•	ShortCodeGeneratorService.java
+
+* ShortCodeGeneratorService.java
 
 generator
-•	SnowflakeIdGenerator.java
+
+* SnowflakeIdGenerator.java
 
 util
-•	Base62Encoder.java
-•	IdScrambler.java
+
+* Base62Encoder.java
+* IdScrambler.java
 
 model
-•	ShortCodeRequest.java
 
-⸻
+* ShortCodeRequest.java
 
-Core Components
+---
 
-Snowflake ID Generator
+# Core Components
 
-Generates globally unique 64-bit IDs.
+## Snowflake ID Generator
+
+Generates globally unique 64‑bit IDs.
 
 Bit layout:
 
-Bits	Purpose
-41	Timestamp
-10	Node ID
-12	Sequence
+| Bits | Purpose   |
+| ---- | --------- |
+| 41   | Timestamp |
+| 10   | Node ID   |
+| 12   | Sequence  |
 
 Supports:
-•	4096 IDs per millisecond per node
-•	Millions of IDs per second across distributed nodes
 
-⸻
+* 4096 IDs per millisecond per node
+* Millions of IDs per second across distributed nodes
 
-ID Scrambler
+---
+
+## ID Scrambler
 
 Snowflake IDs are sequential. If encoded directly, short URLs become predictable.
 
@@ -99,9 +106,9 @@ Example transformation:
 
 This prevents enumeration attacks.
 
-⸻
+---
 
-Base62 Encoder
+## Base62 Encoder
 
 Encodes numeric IDs using the alphabet:
 
@@ -113,45 +120,45 @@ Example:
 
 Codes are padded to maintain fixed length.
 
-⸻
+---
 
-API Endpoints
+# API Endpoints
 
-Create Short URL
+## Create Short URL
 
 POST /api/v1/shorten
 
 Example:
 
-curl -X POST http://localhost:8080/api/v1/shorten
--H “Content-Type: application/json”
--d ‘{“url”:“https://example.com”}’
+curl -X POST [http://localhost:8080/api/v1/shorten](http://localhost:8080/api/v1/shorten)
+-H "Content-Type: application/json"
+-d '{"url":"[https://example.com"}](https://example.com%22})'
 
 Response
 
 {
-“url”: “https://example.com”,
-“shortCode”: “aZ91xQ3”
+"url": "[https://example.com](https://example.com)",
+"shortCode": "aZ91xQ3"
 }
 
-⸻
+---
 
-Redirect to Original URL
+## Redirect to Original URL
 
-GET /api/v1/shorten/{shortCode}
+GET /{shortCode}
 
 Example:
 
-curl -v http://localhost:8080/api/v1/shorten/aZ91xQ3
+curl -v [http://localhost:8080/aZ91xQ3](http://localhost:8080/aZ91xQ3)
 
 Response
 
-HTTP/1.1 301 Moved Permanently
-Location: https://example.com
+HTTP/1.1 302 Found
+Location: [https://example.com](https://example.com)
 
-⸻
+---
 
-Running the Application
+# Running the Application
 
 Using Maven:
 
@@ -159,29 +166,35 @@ mvn spring-boot:run
 
 Server starts at:
 
-http://localhost:8080
+[http://localhost:8080](http://localhost:8080)
 
-⸻
+---
 
-Future Improvements
+# Future Improvements
 
 Production systems typically include:
-•	Redis caching layer
-•	Persistent database (PostgreSQL / DynamoDB)
-•	Collision detection
-•	Analytics and click tracking
-•	Rate limiting
-•	Expiring URLs
-•	Distributed node configuration
 
-⸻
+* Redis caching layer
+* Persistent database (PostgreSQL / DynamoDB)
+* Collision detection
+* Analytics and click tracking
+* Rate limiting
+* Expiring URLs
+* Distributed node configuration
 
-Throughput
+---
+
+# Throughput
 
 Snowflake supports:
-•	4096 IDs per millisecond per node
-•	~4 million IDs per second per node
+
+* 4096 IDs per millisecond per node
+* ~4 million IDs per second per node
 
 This makes the system horizontally scalable.
 
-⸻
+---
+
+# License
+
+MIT
