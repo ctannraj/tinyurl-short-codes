@@ -31,7 +31,7 @@ Response
 
 Redirect request:
 
-GET /aZ91xQ3
+GET /api/v1/shorten/aZ91xQ3
 
 Response:
 
@@ -145,11 +145,11 @@ Response
 
 ## Redirect to Original URL
 
-GET /{shortCode}
+GET /api/v1/shorten/{shortCode}
 
 Example:
 
-curl -v [http://localhost:8080/aZ91xQ3](http://localhost:8080/aZ91xQ3)
+curl -v [http://localhost:8080/api/v1/shorten/aZ91xQ3](http://localhost:8080/aZ91xQ3)
 
 Response
 
