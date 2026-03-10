@@ -1,8 +1,12 @@
-package com.mnc.tinyurl;
+package com.mnc.tinyurl.generator;
 
+import org.springframework.stereotype.Component;
+
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
-class SnowflakeGenerator {
+@Component
+public class SnowflakeIdGenerator {
 
     private final long machineId;
 
@@ -22,13 +26,8 @@ class SnowflakeGenerator {
 
     private final AtomicLong sequence = new AtomicLong(0);
 
-    public SnowflakeGenerator(long machineId) {
-
-        if (machineId < 0 || machineId > MAX_MACHINE_ID) {
-            throw new IllegalArgumentException("Invalid machine id");
-        }
-
-        this.machineId = machineId;
+    public SnowflakeIdGenerator() {
+        this.machineId = new Random().nextInt((int) MAX_MACHINE_ID);
     }
 
     public long nextId() {

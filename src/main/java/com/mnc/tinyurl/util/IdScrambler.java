@@ -1,6 +1,6 @@
-package com.mnc.tinyurl;
+package com.mnc.tinyurl.util;
 
-class IdScrambler {
+public class IdScrambler {
 
     private static final long SALT = 0x5A3C9B2F4D1L; // secret constant
 

@@ -1,9 +1,11 @@
-package com.mnc.tinyurl;
+package com.mnc.tinyurl.util;
 
-class Base62Encoder {
+public class Base62Encoder {
 
     private static final char[] BASE62 =
             "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
+    private static final int CODE_LENGTH = 7;
 
     public static String encode(long value) {
 
@@ -15,6 +17,14 @@ class Base62Encoder {
             value /= 62;
         }
 
-        return sb.reverse().toString();
+
+        String code = sb.reverse().toString();
+
+        // left pad if shorter than 7
+        if (code.length() < CODE_LENGTH) {
+            code = "0".repeat(CODE_LENGTH - code.length()) + code;
+        }
+
+        return code;
     }
 }
